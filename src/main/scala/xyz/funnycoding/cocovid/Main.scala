@@ -20,11 +20,10 @@ object Main extends App {
 
   val session: SparkSession = sessionbuilder.getOrCreate()
   private val frame: DataFrame = session.read
-    .format("csv")
     .option("header", "true")
     .option("inferSchema", "true")
     .option("delimiter", ",")
-    .csv(getClass.getResource("/19-03-20.csv").getPath)
+    .csv("src/main/resources/*.csv")
 
 //    .as[DailyReport](Encoders.product[DailyReport])
 
