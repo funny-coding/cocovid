@@ -9,6 +9,9 @@ import org.apache.spark.sql.{ Dataset, Encoders, SparkSession }
 
 object Main extends App {
 
+  val accessKeyId     = System.getenv("AWS_ACCESS_KEY_ID")
+  val secretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY")
+
   val conf = new SparkConf()
     .set("spark.ui.enabled", "false")
     .set("spark.driver.host", "localhost")
@@ -19,16 +22,21 @@ object Main extends App {
     .appName("cocovid")
 
   val session: SparkSession = sessionbuilder.getOrCreate()
-  private val frame: DataFrame = session.read
+
+  session.sparkContext.hadoopConfiguration.set("fs.s3n.awsSecretAccessKey", secretAccessKey)
+  session.sparkContext.hadoopConfiguration.set("fs.s3n.awsAccessKeyId", accessKeyId)
+  session.sparkContext.hadoopConfiguration.set("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
+  session.sparkContext.hadoopConfiguration.set("fs.s3a.endpoint", "s3.eu-west-3.amazonaws.com")
+  /*private val frame: DataFrame = session.read
     .option("header", "true")
     .option("inferSchema", "true")
     .option("delimiter", ",")
-    .csv("src/main/resources/*.csv")
-
+    .csv("s3n://cocovid19/03-22-2020.csv")*/
+  println(session.sparkContext.textFile("s3a://cocovid19/03-22-2020.csv").count())
 //    .as[DailyReport](Encoders.product[DailyReport])
 
-  frame.printSchema()
+  /* frame.printSchema()
 
   private val value: Dataset[DailyReport] = frame.as[DailyReport](Encoders.product[DailyReport])
-  value.foreach(x => println(x))
+  value.foreach(x => println(x))*/
 }

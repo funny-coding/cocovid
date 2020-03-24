@@ -25,10 +25,12 @@ val sparkVersion = "2.4.5"
 
 libraryDependencies ++= Seq(
   // ZIO
-  "dev.zio"          %% "zio"               % zioVersion,
-  "dev.zio"          %% "zio-test"          % zioVersion % "test",
-  "dev.zio"          %% "zio-test-sbt"      % zioVersion % "test",
-  "dev.zio"          %% "zio-test-magnolia" % zioVersion % "test",
-  "org.apache.spark" %% "spark-sql"         % sparkVersion
+  "dev.zio"           %% "zio"               % zioVersion,
+  "dev.zio"           %% "zio-test"          % zioVersion % "test",
+  "dev.zio"           %% "zio-test-sbt"      % zioVersion % "test",
+  "dev.zio"           %% "zio-test-magnolia" % zioVersion % "test",
+  "org.apache.spark"  %% "spark-sql"         % sparkVersion,
+  "com.amazonaws"     % "aws-java-sdk"       % "1.7.4",
+  "org.apache.hadoop" % "hadoop-aws"         % "2.6.5"
 )
 testFrameworks := Seq(new TestFramework("zio.test.sbt.ZTestFramework"))
