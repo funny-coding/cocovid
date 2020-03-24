@@ -30,8 +30,9 @@ libraryDependencies ++= Seq(
   "dev.zio"           %% "zio-test-sbt"      % zioVersion % "test",
   "dev.zio"           %% "zio-test-magnolia" % zioVersion % "test",
   "org.apache.spark"  %% "spark-sql"         % sparkVersion,
-  "com.amazonaws"     % "aws-java-sdk"       % "1.11.749",
-  "org.apache.hadoop" % "hadoop-aws"         % "3.2.1",
-  "org.apache.hadoop" % "hadoop-common"      % "3.2.1"
+  "com.amazonaws"     % "aws-java-sdk"       % "1.7.4",
+  "org.apache.hadoop" % "hadoop-aws"         % "2.7.1"
+//  "org.apache.hadoop" % "hadoop-client"      % "3.2.1",
+//  "org.apache.hadoop" % "hadoop-common"      % "3.2.1"
 )
 testFrameworks := Seq(new TestFramework("zio.test.sbt.ZTestFramework"))
