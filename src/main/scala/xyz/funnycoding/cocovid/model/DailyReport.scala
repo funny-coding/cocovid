@@ -4,9 +4,9 @@ case class DailyReport(
   province: Option[String],
   country: String,
   lastUpdate: String,
-  confirmed: Int,
-  deaths: Int,
-  recovered: Int,
-  latitude: Double,
-  longitude: Double
+  confirmed: Option[Int],
+  deaths: Option[Int],
+  recovered: Option[Int],
+  latitude: Option[Double],
+  longitude: Option[Double]
 )
