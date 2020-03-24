@@ -23,20 +23,21 @@ object Main extends App {
 
   val session: SparkSession = sessionbuilder.getOrCreate()
 
-  session.sparkContext.hadoopConfiguration.set("fs.s3n.awsSecretAccessKey", secretAccessKey)
-  session.sparkContext.hadoopConfiguration.set("fs.s3n.awsAccessKeyId", accessKeyId)
-  session.sparkContext.hadoopConfiguration.set("spark.hadoop.fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
-  session.sparkContext.hadoopConfiguration.set("fs.s3a.endpoint", "s3.eu-west-3.amazonaws.com")
-  /*private val frame: DataFrame = session.read
+  session.sparkContext.hadoopConfiguration.set("fs.s3a.access.key", secretAccessKey)
+  session.sparkContext.hadoopConfiguration.set("fs.s3a.secret.key", accessKeyId)
+  session.sparkContext.hadoopConfiguration.set("fs.s3a.impl", "org.apache.hadoop.fs.s3a.S3AFileSystem")
+  session.sparkContext.hadoopConfiguration.set("com.amazonaws.services.s3.enableV4", "true")
+  session.sparkContext.hadoopConfiguration.set("fs.s3a.endpoint", "s3.us-east-1.amazonaws.com")
+  private val frame = session.read
     .option("header", "true")
     .option("inferSchema", "true")
     .option("delimiter", ",")
-    .csv("s3n://cocovid19/03-22-2020.csv")*/
-  println(session.sparkContext.textFile("s3a://cocovid19/03-22-2020.csv").count())
+    .csv("s3a://cocovid.19/03-22-2020.csv")
+//  println(session.sparkContext.textFile("s3a://cocovid.19/03-22-2020.csv").count())
 //    .as[DailyReport](Encoders.product[DailyReport])
 
-  /* frame.printSchema()
+  frame.printSchema()
 
   private val value: Dataset[DailyReport] = frame.as[DailyReport](Encoders.product[DailyReport])
-  value.foreach(x => println(x))*/
+  value.foreach(x => println(x))
 }
